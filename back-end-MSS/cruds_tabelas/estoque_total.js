@@ -1,10 +1,10 @@
 async function routes(fastify, options) {
 
     // GET
-    fastify.get("/get/:id", async (request, reply) => {
+    fastify.get("/estoque_total/get/:id", async (request, reply) => {
         try {
             const result = await fastify.pg.query(
-                'SELECT * FROM times WHERE times.id = $1',
+                'SELECT * FROM estoque_total WHERE estoque_total.id = $1',
                 [Number(request.params.id)]
             );
             return result.rows;
@@ -14,9 +14,9 @@ async function routes(fastify, options) {
     });
     
     // GET LIST
-    fastify.get("/getlist", async (request, reply) => {
+    fastify.get("/estoque_total/getlist", async (request, reply) => {
         try {
-            const result = await fastify.pg.query("SELECT * FROM tabela_empresa");
+            const result = await fastify.pg.query("SELECT * FROM estoque_total");
             return result.rows;
         } catch (error) {
             reply.status(500).send(error.message);
@@ -24,13 +24,13 @@ async function routes(fastify, options) {
     });
 
     // POST
-    fastify.post("/create", async (request, reply) => {
+    fastify.post("/estoque_total/create", async (request, reply) => {
         try {
-            const { nome, n_jogadores, valor_clube } = request.body;
+            const { empresa, tipo, kg, total } = request.body;
     
             const result = await fastify.pg.query(
-                "INSERT INTO times (nome, n_jogadores, valor_clube) VALUES ($1, $2, $3)",
-                [nome, n_jogadores, valor_clube]
+                "INSERT INTO estoque_total (empresa, tipo, kg, total) VALUES ($1, $2, $3, $4)",
+                [empresa, tipo, kg, total]
             );
     
             return result.rows;
@@ -40,13 +40,13 @@ async function routes(fastify, options) {
     });
 
     // EDIT
-    fastify.put("/edit/:id", async (request, reply) => {
+    fastify.put("/estoque_total/edit/:id", async (request, reply) => {
         try {
-            const { id, nome, n_jogadores, valor_clube } = request.body;
+            const { id, empresa, tipo, kg, total } = request.body;
 
             const result = await fastify.pg.query(
-                "UPDATE times SET nome = $2, n_jogadores = $3, valor_clube = $4 WHERE id = $1 RETURNING *",
-                [id, nome, n_jogadores, valor_clube]
+                "UPDATE estoque_total SET empresa = $2, tipo = $3, kg = $4, total = $5 WHERE id = $1 RETURNING *",
+                [id, empresa, tipo, kg, total]
             );
 
             return result.rows;
@@ -56,10 +56,10 @@ async function routes(fastify, options) {
     });
 
     // DELETE
-    fastify.delete("/delete/:id", async (request, reply) => {
+    fastify.delete("/estoque_total/delete/:id", async (request, reply) => {
         try {
             const result = await fastify.pg.query(
-                'DELETE FROM times WHERE times.id = $1',
+                'DELETE FROM estoque_total WHERE estoque_total.id = $1',
                 [Number(request.params.id)]
             );
             return result.rows;
