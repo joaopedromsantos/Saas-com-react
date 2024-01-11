@@ -1,0 +1,7 @@
+#navbar {
+    display: flex;
+    margin-top: 0px;
+    height: 120px;
+    background-color: #fff;
+    border-bottom: 2px solid #EFF0F1;
+}
