@@ -1,7 +1,73 @@
 #navbar {
     display: flex;
+    flex-direction: row;
     margin-top: 0px;
     height: 120px;
     background-color: #fff;
     border-bottom: 2px solid #EFF0F1;
+    align-items: center;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    justify-content: space-between;
+}
+
+#logo {
+    width: 200px;
+    height: 46px;
+}
+
+#logo-imagem{
+    width: 170px;
+    height: 46px;
+}
+
+#cont-header {
+    width: 42%;
+    height: 96px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;    
+}
+
+#user-info {
+    height: 96px;  
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 1.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 18px;
+}
+
+#user-foto {
+    width: 3.5rem;
+}
+
+.box-header {
+    width: 20%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.icon {
+    font-size: 32px;
+}
+
+.word {
+    margin-bottom: 8px;
+}
+
+.hub {
+    margin-top: 6px;
+    width: 80%;
+    height: 5px;
+    background: linear-gradient(180deg, #1B59F8 37.5%, #769AF8 95.5%, #7D9FF8 100%);
+    background-blend-mode: multiply;
+    border-radius: 3px;
 }
