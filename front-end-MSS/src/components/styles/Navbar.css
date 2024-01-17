@@ -39,6 +39,7 @@
     padding-left: 1rem;
     padding-right: 1rem;
     font-size: 18px;
+    color: #6c6c6d;
 }
 
 #user-foto {
@@ -50,24 +51,48 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: end;
     align-items: center;
+    cursor: pointer;
 }
 
 
 .icon {
     font-size: 32px;
+    color: #99999c;
 }
 
 .word {
     margin-bottom: 8px;
+    color: #99999c;
 }
 
 .hub {
     margin-top: 6px;
     width: 80%;
     height: 5px;
-    background: linear-gradient(180deg, #1B59F8 37.5%, #769AF8 95.5%, #7D9FF8 100%);
+    background: #ceb375;
     background-blend-mode: multiply;
     border-radius: 3px;
+    visibility: hidden;
+}
+
+.box-header:hover {
+    transform: scale(1.1); /* aumenta o tamanho do box-header em 10% */
+    background: radial-gradient(circle, rgba(235, 235, 235, 0.849) 0%, transparent 100%); /* muda a cor de fundo */
+    border-radius: 10px;
+}
+
+.box-header:hover .hub{
+    visibility: visible;
+}
+
+
+.box-header:hover .icon {
+    color: #ceb375; /* muda a cor do ícone */
+    
+}
+
+.box-header:hover .word p {
+    color: #ceb375; /* muda a cor do texto */
 }
