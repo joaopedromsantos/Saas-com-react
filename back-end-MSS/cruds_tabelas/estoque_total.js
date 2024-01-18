@@ -16,7 +16,22 @@ async function routes(fastify, options) {
     // GET LIST
     fastify.get("/estoque_total/getlist", async (request, reply) => {
         try {
-            const result = await fastify.pg.query("SELECT * FROM estoque_total");
+            const result = await fastify.pg.query(`
+                SELECT 
+                    e.id,
+                    tab_e.nome AS empresa,
+                    kg.nome AS kg,
+                    tp.nome AS tipo,
+                    e.total
+                FROM 
+                    estoque_total e
+                JOIN 
+                    tabela_empresa tab_e ON e.empresa = tab_e.id
+                JOIN
+                    tabela_kg kg ON e.kg = kg.id
+                JOIN
+                    tabela_tipo tp ON e.tipo = tp.id
+            `);
             return result.rows;
         } catch (error) {
             reply.status(500).send(error.message);

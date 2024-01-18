@@ -4,14 +4,3 @@
     font-weight: 600;
     font-size: 2rem;
 }
-
-#element-central {
-    background-color: #FFFFFF;
-    width: 90%;
-    margin: 5%;
-    margin-top: 2%;
-    height: 70vh;
-    padding: 2rem;
-    box-shadow: 10px 10px 15px 1px #cccccc;
-    border-radius: 8px;
-}
