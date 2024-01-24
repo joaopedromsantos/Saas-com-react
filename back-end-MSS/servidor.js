@@ -32,6 +32,7 @@ const cobrar = require('./cruds_tabelas/cobrar');
 const tabela_kg = require('./cruds_tabelas/tabela_kg');
 const estoque_total = require('./cruds_tabelas/estoque_total');
 const tabela_tipo = require('./cruds_tabelas/tabela_tipo');
+const fluxo_estoque = require('./cruds_tabelas/fluxo_estoque');
 
 // Registre as rotas de cada tabela
 fastify.register(tabelaEmpresa);
@@ -39,6 +40,7 @@ fastify.register(cobrar);
 fastify.register(tabela_kg);
 fastify.register(estoque_total);
 fastify.register(tabela_tipo);
+fastify.register(fluxo_estoque);
 
 const start = async () => {
     try {

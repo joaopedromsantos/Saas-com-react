@@ -14,6 +14,7 @@
 #table {
     height: 100%;
     margin-top: 2rem;
+    
 }
 
 #header-list {
@@ -21,4 +22,25 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+}
+
+.custom-button-add:hover{
+    color: rgb(212, 226, 215) !important;
+}
+
+.ok-button {
+    background-color: #18A16C;
+}
+
+.ok-button:hover {
+    background-color: #18A16C !important;
+    color: #D5EEF0 !important;
+}
+
+.cancel-button {
+    background-color: #A13018;
+}
+
+.cancel-button:hover {
+    color: #D5EEF0 !important;
 }

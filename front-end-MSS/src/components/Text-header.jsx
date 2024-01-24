@@ -13,7 +13,7 @@ function textHeader() {
         pageName = 'Dashboards';
         break;
       case '/estoque':
-        pageName = 'Estoque';
+        pageName = 'Fluxo de Estoque';
         break;
       case '/marcacao':
         pageName = 'Marcações';
