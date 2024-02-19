@@ -28,19 +28,24 @@ fastify.register(require('@fastify/postgres'), {
 
 // Importe os arquivos de cada tabela
 const tabelaEmpresa = require('./cruds_tabelas/tabela_empresa');
-const cobrar = require('./cruds_tabelas/cobrar');
+const marcacao = require('./cruds_tabelas/marcacao');
 const tabela_kg = require('./cruds_tabelas/tabela_kg');
 const estoque_total = require('./cruds_tabelas/estoque_total');
 const tabela_tipo = require('./cruds_tabelas/tabela_tipo');
 const fluxo_estoque = require('./cruds_tabelas/fluxo_estoque');
 
+// APIS
+const APIS_estoque = require('./apis/estoque');
+
 // Registre as rotas de cada tabela
 fastify.register(tabelaEmpresa);
-fastify.register(cobrar);
+fastify.register(marcacao);
 fastify.register(tabela_kg);
 fastify.register(estoque_total);
 fastify.register(tabela_tipo);
 fastify.register(fluxo_estoque);
+
+fastify.register(APIS_estoque);
 
 const start = async () => {
     try {

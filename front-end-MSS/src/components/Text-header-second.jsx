@@ -13,10 +13,10 @@ function textHeader() {
         pageName = 'Dashboards';
         break;
       case '/estoque':
-        pageName = 'Fluxo de Estoque';
+        pageName = 'Estoque Total';
         break;
       case '/marcacao':
-        pageName = 'Histórico de Marcações';
+        pageName = 'Marcações';
         break;
       case '/cobrar':
         pageName = 'Cobranças';

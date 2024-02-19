@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import PageName from '../components/Text-header.jsx';
+import PageNameSecond from '../components/Text-header-second.jsx';
 import TableEstoque from '../components/table-estoque.jsx';
+import TableEstoqueTotal from '../components/table-estoque-total.jsx';
 
 import './style/estoque.css'
 import { Button, Form, InputNumber, Modal, Radio, ConfigProvider, Select , Spin} from 'antd';
 
 
-const CollectionCreateForm = ({ open, onCreate, onCancel, fetchData }) => {
+const CollectionCreateForm = ({ open, onCreate, onCancel, fetchData, fetchDataEstoque }) => {
     const [form] = Form.useForm();
 
     const [empresas, setEmpresas] = useState([]); // novo state para armazenar as empresas
@@ -27,7 +29,7 @@ const CollectionCreateForm = ({ open, onCreate, onCancel, fetchData }) => {
             });
     }, []);
 
-    // novo useEffect para buscar as empresas
+    // novo useEffect para buscar os kg
     useEffect(() => {
         axios.get('http://localhost:3000/tabela_kg/getlist')
             .then((response) => {
@@ -38,7 +40,7 @@ const CollectionCreateForm = ({ open, onCreate, onCancel, fetchData }) => {
             });
     }, []);
 
-    // novo useEffect para buscar as empresas
+    // novo useEffect para buscar os tipos
     useEffect(() => {
         axios.get('http://localhost:3000/tabela_tipo/getlist')
             .then((response) => {
@@ -55,8 +57,8 @@ const CollectionCreateForm = ({ open, onCreate, onCancel, fetchData }) => {
       <Modal
         open={open}
         title="Adicionar Estoque"
-        okText="Create"
-        cancelText="Cancel"
+        okText="Adicionar"
+        cancelText="Cancelar"
         onCancel={onCancel}
         onOk={() => {
           form
@@ -71,6 +73,7 @@ const CollectionCreateForm = ({ open, onCreate, onCancel, fetchData }) => {
                   console.log(response);
                   // Você pode adicionar mais lógica aqui, como fechar o modal
                   fetchData();
+                  fetchDataEstoque();
                 })
                 .catch(error => {
                   console.log(error);
@@ -174,6 +177,13 @@ const CollectionCreateForm = ({ open, onCreate, onCancel, fetchData }) => {
 function Estoque() {
     const [open, setOpen] = useState(false);
     const [data, setData] = useState([]); // Adicione este estado para armazenar os dados da tabela
+    const [data_total, setDataTotal] = useState([]); // Adicione este estado para armazenar os dados da tabela
+
+    const fetchDataEstoque = async () => {
+      const response = await fetch('http://localhost:3000/estoque_total/getlist');
+      const data_total = await response.json();
+      setDataTotal(data_total);
+  };
 
     const fetchData = async () => {
         const response = await fetch('http://localhost:3000/fluxo_estoque/getlist');
@@ -183,15 +193,17 @@ function Estoque() {
 
     useEffect(() => {
         fetchData();
+        fetchDataEstoque()
     }, []);
 
     const onCreate = async (values) => {
-      console.log('Received values of form: ', values);
-      await fetchData();
+        await fetchData();
+        await fetchDataEstoque()
       setOpen(false);
     };    
 
     return (
+      <div id='geral'>
         <div id='element-central'>
             <div id='header-list'>
                 <PageName />
@@ -217,12 +229,23 @@ function Estoque() {
                         setOpen(false);
                         }}
                         fetchData={fetchData}
+                        fetchDataEstoque ={fetchDataEstoque}
                     />
                 </ConfigProvider>
             </div>
             <div id='table'>
-                <TableEstoque data={data}  fetchData={fetchData} />
+                <TableEstoque data={data}  fetchData={fetchData} fetchDataTotal={fetchDataEstoque}/>
             </div>
+        </div>
+
+        <div id='element-central'>
+          <div id='header-list'>
+              <PageNameSecond />
+          </div>
+          <div id='table'>
+              <TableEstoqueTotal data={data_total}  fetchData={fetchDataEstoque} />
+          </div>
+        </div>
         </div>
     );
 }

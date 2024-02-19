@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Space, Button, Popconfirm, message } from 'antd';
-import { DeleteOutlined } from '@ant-design/icons';
+import { Table, Space, Popconfirm, Button } from 'antd';
+import { CheckCircleOutlined, CloseCircleOutlined, EditOutlined, EyeOutlined, DeleteOutlined } from '@ant-design/icons';
 import moment from 'moment';
 
-function TableEstoque({ data, fetchData, fetchDataTotal }) {
+import './styles/Text-header.css'
+
+function tableMarcacao({ data, fetchData }) {
 
   const [empresaFilter, setEmpresaFilter] = useState([]);
   const [tipoFilter, setTipoFilter] = useState([]);
@@ -21,30 +23,11 @@ function TableEstoque({ data, fetchData, fetchDataTotal }) {
     setKgFilter(kgs);
   }, [data]);
 
-  const handleDelete = async (record) => {
-    try {
-      // Assuming record.id is the unique identifier for the item
-      const response = await fetch(`http://localhost:3000/fluxo_estoque/delete/${record.id}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (response.ok) {
-        message.success('Deletado com sucesso');
-        fetchData(); // Refresh
-        fetchDataTotal();
-      } else {
-        message.error('Erro ao deletar fluxo');
-      }
-    } catch (error) {
-      console.error('Erro ao deletar fluxo:', error);
-      message.error('An error occurred while deleting the item');
-    }
-  };
-
   const columns = [
+    {
+      title: 'OIC',
+      dataIndex: 'oic'
+    },
     {
       title: 'Empresa',
       dataIndex: 'empresa',
@@ -66,11 +49,19 @@ function TableEstoque({ data, fetchData, fetchDataTotal }) {
     {
       title: 'Quantidade',
       dataIndex: 'quantidade',
-      sorter: (a, b) => a.quantidade - b.quantidade,
+      sorter: (a, b) => a.total - b.total,
+    },
+
+    {
+      title: 'Cobrado',
+      dataIndex: 'cobrado',
+      render: (cobrado) => (
+        cobrado ? <CheckCircleOutlined style={{ color: 'green' }} /> : <CloseCircleOutlined style={{ color: 'red' }} />
+      ),
     },
     {
-      title: 'Data',
-      dataIndex: 'data',
+      title: 'Data do Pedido',
+      dataIndex: 'data_pedido',
       sorter: (a, b) => new Date(a.data) - new Date(b.data),
       render: (text) => (
         <span>{moment(text).format('DD/MM/YYYY | HH:mm')}</span>
@@ -78,13 +69,19 @@ function TableEstoque({ data, fetchData, fetchDataTotal }) {
     },
     {
       title: 'Ação',
-      width: '1.5rem',
+      width: '1rem',
       align: 'center',
       key: 'ações',
       render: (_, record) => (
         <Space size="middle">
+          <Button type="text" onClick={() => handleEdit(record)}>
+            <EditOutlined />
+          </Button>
+          <Button type="text" onClick={() => handleView(record)}>
+            <EyeOutlined />
+          </Button>
           <Popconfirm
-            title="Deseja realmente excluir essa chegada de estoque?"
+            title="Deseja realmente excluir essa marcação?"
             onConfirm={() => handleDelete(record)}
             okText="  Sim"
             cancelText="Não"
@@ -96,7 +93,10 @@ function TableEstoque({ data, fetchData, fetchDataTotal }) {
         </Space>
       ),
     },
+
   ];
+
+
 
   return (
     <Table
@@ -112,4 +112,4 @@ function TableEstoque({ data, fetchData, fetchDataTotal }) {
   );
 }
 
-export default TableEstoque;
+export default tableMarcacao
