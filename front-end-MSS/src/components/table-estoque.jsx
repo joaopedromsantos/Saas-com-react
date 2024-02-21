@@ -50,23 +50,27 @@ function TableEstoque({ data, fetchData, fetchDataTotal }) {
       dataIndex: 'empresa',
       filters: empresaFilter,
       onFilter: (value, record) => record.empresa.indexOf(value) === 0,
+      align:'center',
     },
     {
       title: 'Tipo',
       dataIndex: 'tipo',
       filters: tipoFilter,
       onFilter: (value, record) => record.tipo.indexOf(value) === 0,
+      align:'center',
     },
     {
       title: 'Kg',
       dataIndex: 'kg',
       filters: kgFilter,
       onFilter: (value, record) => record.kg.indexOf(value) === 0,
+      align:'center',
     },
     {
       title: 'Quantidade',
       dataIndex: 'quantidade',
       sorter: (a, b) => a.quantidade - b.quantidade,
+      align:'center',
     },
     {
       title: 'Data',
@@ -75,6 +79,7 @@ function TableEstoque({ data, fetchData, fetchDataTotal }) {
       render: (text) => (
         <span>{moment(text).format('DD/MM/YYYY | HH:mm')}</span>
       ),
+      align:'center',
     },
     {
       title: 'Ação',

@@ -84,7 +84,7 @@ async function routes(fastify, options) {
                 'DELETE FROM marcacao WHERE marcacao.id = $1',
                 [Number(request.params.id)]
             );
-            return result.rows;
+            return { success: true };
         } catch (error) {
             reply.status(500).send(error.message);
         }

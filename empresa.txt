@@ -1,0 +1,12 @@
+empresa
+tipo
+kg
+oic
+quantidade
+data
+cobrado
+
+
+data cobrado
+observacoes
+email
