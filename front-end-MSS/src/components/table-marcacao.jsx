@@ -1,28 +1,33 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Table, Space, Popconfirm, Button, Input, message } from 'antd';
 import { CheckCircleOutlined, CloseCircleOutlined, EditOutlined, EyeOutlined, DeleteOutlined } from '@ant-design/icons';
+
+import { TableDataContext } from '../context/ThemeContext.jsx';
+
 import moment from 'moment';
 
 import './styles/Text-header.css'
 
-function tableMarcacao({ data, fetchData }) {
+function tableMarcacao() {
+  const { tableData, updateTableData } = useContext(TableDataContext);
+  const { dataMarcacao } = tableData;
 
   const [empresaFilter, setEmpresaFilter] = useState([]);
   const [tipoFilter, setTipoFilter] = useState([]);
   const [kgFilter, setKgFilter] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
-  const dataSource = data.map((item, index) => ({ key: index, ...item }));
+  const dataSource = dataMarcacao.map((item, index) => ({ key: index, ...item }));
 
   useEffect(() => {
-    const empresas = [...new Set(data.map(item => item.empresa))].map(empresa => ({ text: empresa, value: empresa }));
-    const tipos = [...new Set(data.map(item => item.tipo))].map(tipo => ({ text: tipo, value: tipo }));
-    const kgs = [...new Set(data.map(item => item.kg))].map(kg => ({ text: kg, value: kg }));
+    const empresas = [...new Set(dataMarcacao.map(item => item.empresa))].map(empresa => ({ text: empresa, value: empresa }));
+    const tipos = [...new Set(dataMarcacao.map(item => item.tipo))].map(tipo => ({ text: tipo, value: tipo }));
+    const kgs = [...new Set(dataMarcacao.map(item => item.kg))].map(kg => ({ text: kg, value: kg }));
 
     setEmpresaFilter(empresas);
     setTipoFilter(tipos);
     setKgFilter(kgs);
-  }, [data]);
+  }, [dataMarcacao]);
 
   const handleSearch = (selectedKeys, confirm) => {
     confirm();
@@ -45,8 +50,8 @@ function tableMarcacao({ data, fetchData }) {
       });
 
       if (response.ok) {
-        message.success('Deletado com sucesso');
-        fetchData();
+        await updateTableData();
+        message.success('Deletado com sucesso!');
       } else {
         message.error('Erro ao deletar marcação');
       }
@@ -174,7 +179,7 @@ function tableMarcacao({ data, fetchData }) {
       dataSource={dataSource}
       columns={columns}
       pagination={{
-        defaultPageSize: 5,
+        defaultPageSize: 10,
         showSizeChanger: true,
         pageSizeOptions: ['5', '10', '20', '30', '40'],
         showTotal: (total) => `Total: ${total}`,

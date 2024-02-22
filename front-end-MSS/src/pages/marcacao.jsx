@@ -1,8 +1,9 @@
 import TableMarcacao from '../components/table-marcacao'
 import { Button, ConfigProvider } from 'antd';
 
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState} from 'react';
+
+import FormMarcacao from '../components/FormMarcacao.jsx'
 
 import PageName from '../components/Text-header.jsx';
 
@@ -11,20 +12,7 @@ import './style/marcacao.css'
 
  
 function marcacao() {
-
-  const [data, setData] = useState([]); // Adicione este estado para armazenar os dados da tabela
   const [open, setOpen] = useState(false);
-
-  const fetchData = async () => {
-    const response = await fetch('http://localhost:3000/marcacao/getlist');
-    const data = await response.json();
-    setData(data);
-  };
-
-  useEffect(() => {
-    fetchData(); 
-  }, []);
-  
 
   return (
     <div id='geral'>
@@ -45,11 +33,15 @@ function marcacao() {
                         },
                     }}
                 >
-                  <Button onClick={() => {setOpen(true)}} className="custom-button-add"> Adicionar Estoque </Button>
+                  <Button onClick={() => {setOpen(true)}} className="custom-button-add"> Adicionar Marcação </Button>
+                  <FormMarcacao 
+                      open={open}
+                      setOpen={setOpen}
+                    />
                 </ConfigProvider> 
             </div>     
             <div id='table'>
-                <TableMarcacao data={data}  fetchData={fetchData}/>
+                <TableMarcacao />
             </div>
         </div>
     </div>

@@ -1,23 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Table } from 'antd';
+import { TableDataContext } from '../context/ThemeContext';
 
 
-function TableEstoque({ data, fetchData }) {
+function TableEstoque() {
+  const { tableData } = useContext(TableDataContext);
+  const { dataTotal } = tableData;
+
   const [empresaFilter, setEmpresaFilter] = useState([]);
   const [tipoFilter, setTipoFilter] = useState([]);
   const [kgFilter, setKgFilter] = useState([]);
 
-  const dataSource = data.map((item, index) => ({ key: index, ...item }));
+  const dataSource = dataTotal.map((item, index) => ({ key: index, ...item }));
 
   useEffect(() => {
-    const empresas = [...new Set(data.map(item => item.empresa))].map(empresa => ({ text: empresa, value: empresa }));
-    const tipos = [...new Set(data.map(item => item.tipo))].map(tipo => ({ text: tipo, value: tipo }));
-    const kgs = [...new Set(data.map(item => item.kg))].map(kg => ({ text: kg, value: kg }));
+    const empresas = [...new Set(dataTotal.map(item => item.empresa))].map(empresa => ({ text: empresa, value: empresa }));
+    const tipos = [...new Set(dataTotal.map(item => item.tipo))].map(tipo => ({ text: tipo, value: tipo }));
+    const kgs = [...new Set(dataTotal.map(item => item.kg))].map(kg => ({ text: kg, value: kg }));
 
     setEmpresaFilter(empresas);
     setTipoFilter(tipos);
     setKgFilter(kgs);
-  }, [data]);
+  }, [dataTotal]);
 
   const columns = [
     {

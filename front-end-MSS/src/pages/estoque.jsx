@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState} from 'react';
 
 import PageName from '../components/Text-header.jsx';
 import PageNameSecond from '../components/Text-header-second.jsx';
@@ -8,38 +7,13 @@ import TableEstoqueTotal from '../components/table-estoque-total.jsx';
 import FormEstoque from '../components/FormEstoque.jsx';
 
 import './style/estoque.css'
-import { Button, Form, InputNumber, Modal, Radio, ConfigProvider, Select , Spin} from 'antd';
+import { Button, ConfigProvider} from 'antd';
 
 
 
 
 function Estoque() {
     const [open, setOpen] = useState(false);
-    const [data, setData] = useState([]); // Adicione este estado para armazenar os dados da tabela
-    const [data_total, setDataTotal] = useState([]); // Adicione este estado para armazenar os dados da tabela
-
-    const fetchDataEstoque = async () => {
-      const response = await fetch('http://localhost:3000/estoque_total/getlist');
-      const data_total = await response.json();
-      setDataTotal(data_total);
-  };
-
-    const fetchData = async () => {
-        const response = await fetch('http://localhost:3000/fluxo_estoque/getlist');
-        const data = await response.json();
-        setData(data);
-    };
-
-    useEffect(() => {
-        fetchData();
-        fetchDataEstoque()
-    }, []);
-
-    const onCreate = async (values) => {
-        await fetchData();
-        await fetchDataEstoque()
-      setOpen(false);
-    };    
 
     return (
       <div id='geral'>
@@ -64,13 +38,11 @@ function Estoque() {
                     <FormEstoque 
                       open={open}
                       setOpen={setOpen}
-                      fetchData={fetchData}
-                      fetchDataEstoque ={fetchDataEstoque}
                     />
                 </ConfigProvider>
             </div>
             <div id='table'>
-                <TableEstoque data={data}  fetchData={fetchData} fetchDataTotal={fetchDataEstoque}/>
+                <TableEstoque />
             </div>
         </div>
 
@@ -79,7 +51,7 @@ function Estoque() {
               <PageNameSecond />
           </div>
           <div id='table'>
-              <TableEstoqueTotal data={data_total}  fetchData={fetchDataEstoque} />
+              <TableEstoqueTotal />
           </div>
         </div>
         </div>

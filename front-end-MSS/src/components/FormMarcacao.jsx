@@ -3,11 +3,10 @@ import axios from 'axios';
 
 import { TableDataContext } from '../context/ThemeContext';
 
-import '../pages/style/estoque.css'
 import { Form, InputNumber, Modal, Select , Spin, message } from 'antd';
 
-const FormEstoque = ({ open, setOpen }) => {
-    const { updateTableData, empresas, kgs, tipos } = useContext(TableDataContext);
+const FormMarcacao = ({ open, setOpen }) => {
+    const { updateTableData, updateTableMarcacao, empresas, kgs, tipos } = useContext(TableDataContext);
     const [form] = Form.useForm();
     const [loading, setLoading] = useState(false);
 
@@ -21,7 +20,7 @@ const FormEstoque = ({ open, setOpen }) => {
 
   return (
     <Modal
-        title="Adicionar Estoque"
+        title="Adicionar Marcação"
         okText="Adicionar"
         cancelText="Cancelar"
         open={open}
@@ -34,9 +33,10 @@ const FormEstoque = ({ open, setOpen }) => {
             setLoading(true);
 
             // Chame a função Axios aqui
-            axios.post('http://localhost:3000/fluxo_estoque/create', values)
+            axios.post('http://localhost:3000/marcacao/create', values)
                 .then(response => {
                     updateTableData();
+                    updateTableMarcacao();
                     message.success('Criado com sucesso!');
                 })
                 .catch(error => {
@@ -58,12 +58,12 @@ const FormEstoque = ({ open, setOpen }) => {
     >
         <Spin spinning={loading}>
         <Form
-        form={form}
-        layout="vertical"
-        name="form_estoque"
-        initialValues={{
-            modifier: 'public',
-        }}
+            form={form}
+            layout="vertical"
+            name="form_marcacao"
+            initialValues={{
+                modifier: 'public',
+            }}
         >
         <Form.Item
             name="empresa"
@@ -138,4 +138,4 @@ const FormEstoque = ({ open, setOpen }) => {
     )
 }
 
-export default FormEstoque
+export default FormMarcacao

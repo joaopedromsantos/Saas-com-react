@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Table, Space, Button, Popconfirm, message } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import moment from 'moment';
+import { TableDataContext } from '../context/ThemeContext';
 
-function TableEstoque({ data, fetchData, fetchDataTotal }) {
+function TableEstoque() {
+  const { tableData, updateTableData } = useContext(TableDataContext);
+  const { data } = tableData;
 
   const [empresaFilter, setEmpresaFilter] = useState([]);
   const [tipoFilter, setTipoFilter] = useState([]);
@@ -32,11 +35,10 @@ function TableEstoque({ data, fetchData, fetchDataTotal }) {
       });
 
       if (response.ok) {
-        message.success('Deletado com sucesso');
-        fetchData(); // Refresh
-        fetchDataTotal();
+        await updateTableData();
+        message.success('Deletado com sucesso!');
       } else {
-        message.error('Erro ao deletar fluxo');
+        message.error('Erro ao deletar fluxo!');
       }
     } catch (error) {
       console.error('Erro ao deletar fluxo:', error);
