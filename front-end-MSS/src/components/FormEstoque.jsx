@@ -41,7 +41,7 @@ const FormEstoque = ({ open, setOpen }) => {
                 })
                 .catch(error => {
                     console.log(error);
-                    message.success('Erro na criação!');
+                    message.error('Erro na criação!');
                 })
                 .finally(() => {
                     setLoading(false);

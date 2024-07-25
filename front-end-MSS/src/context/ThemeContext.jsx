@@ -48,6 +48,7 @@ export const TableDataProvider = ({ children }) => {
     const updateTableData = () => {
         fetchData();
         fetchDataEstoque();
+        fetchDataMarcacao();
     };
     
     const updateTableMarcacao = () => {

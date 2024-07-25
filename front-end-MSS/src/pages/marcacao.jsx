@@ -15,9 +15,9 @@ function marcacao() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div id='geral'>
-      <div id='element-central'>
-            <div id='header-list'>
+    <div className='geral'>
+      <div className='element-central'>
+            <div className='header-list'>
               <PageName />
               <ConfigProvider
                     theme={{

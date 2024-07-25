@@ -16,9 +16,9 @@ function Estoque() {
     const [open, setOpen] = useState(false);
 
     return (
-      <div id='geral'>
-        <div id='element-central'>
-            <div id='header-list'>
+      <div className='geral'>
+        <div className='element-central'>
+            <div className='header-list'>
                 <PageName />
                 <ConfigProvider
                     theme={{
@@ -41,16 +41,16 @@ function Estoque() {
                     />
                 </ConfigProvider>
             </div>
-            <div id='table'>
+            <div className='table'>
                 <TableEstoque />
             </div>
         </div>
 
-        <div id='element-central'>
-          <div id='header-list'>
+        <div className='element-central'>
+          <div className='header-list'>
               <PageNameSecond />
           </div>
-          <div id='table'>
+          <div className='table'>
               <TableEstoqueTotal />
           </div>
         </div>

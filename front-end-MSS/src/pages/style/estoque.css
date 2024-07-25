@@ -1,4 +1,4 @@
-#element-central {
+.element-central {
     background-color: #FFFFFF;
     width: 90%;
     margin: 5%;
@@ -6,18 +6,18 @@
     padding: 2rem;
     border-radius: 20px;
     border: 1px solid var(--Stroke-Color, #EFF0F6);
-    box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.05);
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);
     display: flex;
     flex-direction: column;
 }
 
-#table {
+.table {
     height: 100%;
     margin-top: 2rem;
     
 }
 
-#header-list {
+.header-list {
     display: flex;
     flex-direction: row;
     align-items: center;
